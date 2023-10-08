@@ -16,4 +16,4 @@ for model in models_list:
 for model in prepopulated_models:
     admin.site.register(model, CategoriesAdmin)
 
-admin.site.register(Customer, UserAdmin)
+admin.site.register(Customer)
