@@ -1,0 +1,16 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block forms %}
+<div class="popup-bg">
+    <div class="popup">
+        <span>Registration</span>
+        <a href="{% url 'home' %}" class="close-popup">
+            <i class="fa-sharp fa-solid fa-square-xmark fa-xl"></i>
+        </a>
+    </div>
+</div>
+
+<script src="{% static 'shop/js/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'shop/js/registration_script.js' %}"></script>
+{% endblock forms %}
