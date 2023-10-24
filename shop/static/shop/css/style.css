@@ -160,9 +160,9 @@ section {
     width: 300px;
 }
 
-/* registration */
+/* auth-forms */
 
-.popup-bg {
+.auth-form-bg {
     position: fixed;
     width: 100%;
     height: 100%;
@@ -171,42 +171,127 @@ section {
     background-color: rgba(0,0,0,0.4);
 }
 
-.popup {
+.auth-form {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 600px;
-    background-color: aliceblue;
-    border-radius: 1.7%;
+    width: 450px;
+    background-color: #ffffff;;
+    border-radius: 3%;
     padding: 20px;
     transform: translate(-50%, -50%);
     padding-top: 60px;
 }
 
-.popup span {
+.auth-form span {
     position: absolute;
     font-size: 1.5rem;
     top: 23px;
     left: 30px;
 }
 
-.popup form {
+.auth-form form {
     margin: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding: 10px 30px 30px 30px;
     border-top: 0.5px solid rgb(54, 54, 54);
 }
 
-.close-popup {
+.auth-form form .field {
+    position: relative;
+    height: 50px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.auth-form form .field input {
+    height: 100%;
+    width: 100%;
+    padding-left: 20px;
+    border-radius: 20px;
+    outline: none;
+    font-size: 17px;
+    border: 1px solid lightgray;
+    transition: all 0.3s ease;
+}
+
+.auth-form form .field label {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    font-size: 17px;
+    color: #999;
+    transform: translateY(-50%);
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.auth-form form .field input:focus,
+.auth-form form .field input:valid {
+    border-color: #4158d0;
+}
+
+.auth-form form .field input:focus ~ label,
+.auth-form form .field input:valid ~ label {
+    top: 0%;
+    background-color: #ffffff;
+    color: #4158d0;
+    font-size: 16px;
+    /* background: #fff; */
+    transform: translateY(-50%);
+}
+
+.auth-form form .field input[type="submit"] {
+    color: #fff;
+    background-color: #000000;
+    font-size: 18px;
+    font-weight: 500;
+    padding-left: 0;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.auth-form form .field input[type="submit"]:active {
+    transform: scale(0.95);
+}
+
+.auth-form form .pass-link,
+.auth-form form .signup-link {
+    color: #4158d0;
+    margin: 8px 0 0 10px;
+}
+
+.auth-form form .signup-link {
+    text-align: center;
+    margin-top: 20px;
+    color: #262626;
+}
+
+.auth-form form .pass-link a,
+.auth-form form .signup-link a{
+    color: #4158d0;
+    text-decoration: none;
+}
+
+.auth-form form .pass-link a:hover,
+.auth-form form .signup-link a:hover{
+    text-decoration: underline;
+}
+
+.close-form {
     position: absolute;
     top: 30px;
     right: 30px;
 }
 
-.close-popup i {
+.close-form i {
     color: #000000;
 }
 
-.close-popup i:hover {
+.close-form i:hover {
+    color: rgb(187, 7, 7);
+}
+
+
+.close-form i:hover {
     color: rgb(187, 7, 7);
 }

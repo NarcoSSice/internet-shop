@@ -1,0 +1,36 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block forms %}
+<div class="auth-form-bg">
+    <div class="auth-form">
+        <span>Registration</span>
+        <a href="{% url 'home' %}" class="close-form">
+            <i class="fa-sharp fa-solid fa-square-xmark fa-xl"></i>
+        </a>
+        <form method="post">
+            {% csrf_token %}
+            <div class="field">
+                <input type="email" name="username" required>
+                <label>Email Address</label>
+            </div>
+            <div class="field">
+                <input type="password" name="password" required>
+                <label>Password</label>
+            </div>
+            <div class="pass-link"><a href="{% url 'password_reset' %}">Forgot password?</a></div>
+            {{ form.errors }}
+            <div class="field">
+                <input type="submit" value="Login">
+            </div>
+            <div class="signup-link">
+                Not a member?
+                <a href="{% url 'register' %}">Register now</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="{% static 'shop/js/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'shop/js/registration_script.js' %}"></script>
+{% endblock forms %}
