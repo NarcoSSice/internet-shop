@@ -1,0 +1,48 @@
+{% extends 'shop/base.html'%}
+{% load static %}
+
+{% block forms %}
+<div class="auth-form-bg">
+    <div class="auth-form">
+        <span>Registration</span>
+        <a href="{% url 'home' %}" class="close-form">
+            <i class="fa-sharp fa-solid fa-square-xmark fa-xl"></i>
+        </a>
+        <form method="post">
+            {% csrf_token %}
+            <div class="field">
+                <input type="email" name="email" required>
+                <label>Email Address</label>
+            </div>
+            <div class="field">
+                <input type="text" name="first_name" required>
+                <label>First name</label>
+            </div>
+            <div class="field">
+                <input type="text" name="last_name" required>
+                <label>Last name</label>
+            </div>
+            <div class="field">
+                <input type="password" name="password1" required>
+                <label>Password1</label>
+            </div>
+            <div class="field">
+                <input type="password" name="password2" required>
+                <label>Password2</label>
+            </div>
+            <div class="field">
+                <input type="text" name="phone" required>
+                <label>Phone</label>
+            </div>
+            {{ form.errors }}
+            <div class="field">
+                <input type="submit" value="Signup">
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script src="{% static 'shop/js/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'shop/js/registration_script.js' %}"></script>
+{% endblock forms %}

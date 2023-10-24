@@ -1,0 +1,297 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200;400&display=swap');
+
+/* html */
+
+/* header */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+}
+
+nav .container-fluid{
+    padding: 8px 195px 8px 195px ;
+}
+
+.navbar-brand {
+    font-family: 'Roboto', sans-serif;
+}
+
+.navbar-brand img {
+    width: 50px;
+}
+
+.nav-item.dropdown.user:hover,
+.nav-item.basket:hover {
+    background-color: rgb(75, 75, 75);
+}
+
+.form-control.search {
+    width: 700px;
+}
+
+.btn.btn-outline-success,
+.navbar-brand,
+.nav-item.dropdown.catalog {
+    margin-right: 100px;
+}
+
+.nav-item.dropdown.user {
+    margin-right: 55px;
+}
+
+.nav-link.dropdown-toggle.catalog {
+    background-color: rgb(97, 97, 97);
+    border-radius: 10%;
+    color: #ffffff;
+    font-size: 17px;
+}
+
+/* main and sidebar */
+
+.main-sidebar-wrapper {
+    height: auto;
+    background-color: rgb(205, 242, 252);
+    padding: 0 140px 0 140px;
+    font-family: 'Josefin Sans', sans-serif;
+    display: grid;
+    grid-template-columns: 0.7fr 3.3fr;
+    grid-template-areas: "aside main";
+}
+
+/* sidebar */
+
+aside {
+    display: block;
+    border-right: solid;
+    border-color: rgb(141, 141, 141);
+    border-width: 1px;
+}
+
+aside ul {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    list-style: none;
+}
+
+aside li {
+    margin-top: 5px;
+}
+
+.sidebar-socials,
+.sidebar-rights {
+    border-top: 1px solid rgb(141, 141, 141);
+    display: flex;
+    justify-content: center;
+}
+
+.sidebar-socials a {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 7px;
+}
+
+.sidebar-socials img {
+    width: 30px;
+}
+
+.sidebar-rights p {
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* main */
+
+section {
+    margin: 30px;
+}
+
+/* carousel */
+
+.carousel.slide {
+    max-width: 900px;
+    max-height: 500px;
+    margin: auto;
+}
+
+.carousel-inner {
+    height: 500px;
+}
+
+/* cards */
+
+.cards {
+    border-top: solid;
+    border-bottom: solid;
+    border-color: rgb(141, 141, 141);
+    border-width: 1px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.card {
+    background-color: rgb(205, 242, 252);
+    margin: 5px 0 20px 0;
+}
+
+.card-img-top {
+    height: 200px;
+    padding: 20px;
+}
+
+.card-text.card-price {
+    font-size: 25px;
+}
+
+.btn.btn-info.card-button {
+    margin-right: 5px;
+}
+
+/* backform */
+
+.backform-button {
+    display: flex;
+    justify-content: center;
+}
+
+.backform-button button {
+    width: 300px;
+}
+
+/* auth-forms */
+
+.auth-form-bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.auth-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 450px;
+    background-color: #ffffff;;
+    border-radius: 3%;
+    padding: 20px;
+    transform: translate(-50%, -50%);
+    padding-top: 60px;
+}
+
+.auth-form span {
+    position: absolute;
+    font-size: 1.5rem;
+    top: 23px;
+    left: 30px;
+}
+
+.auth-form form {
+    margin: 10px;
+    padding: 10px 30px 30px 30px;
+    border-top: 0.5px solid rgb(54, 54, 54);
+}
+
+.auth-form form .field {
+    position: relative;
+    height: 50px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.auth-form form .field input {
+    height: 100%;
+    width: 100%;
+    padding-left: 20px;
+    border-radius: 20px;
+    outline: none;
+    font-size: 17px;
+    border: 1px solid lightgray;
+    transition: all 0.3s ease;
+}
+
+.auth-form form .field label {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    font-size: 17px;
+    color: #999;
+    transform: translateY(-50%);
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.auth-form form .field input:focus,
+.auth-form form .field input:valid {
+    border-color: #4158d0;
+}
+
+.auth-form form .field input:focus ~ label,
+.auth-form form .field input:valid ~ label {
+    top: 0%;
+    background-color: #ffffff;
+    color: #4158d0;
+    font-size: 16px;
+    /* background: #fff; */
+    transform: translateY(-50%);
+}
+
+.auth-form form .field input[type="submit"] {
+    color: #fff;
+    background-color: #000000;
+    font-size: 18px;
+    font-weight: 500;
+    padding-left: 0;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.auth-form form .field input[type="submit"]:active {
+    transform: scale(0.95);
+}
+
+.auth-form form .pass-link,
+.auth-form form .signup-link {
+    color: #4158d0;
+    margin: 8px 0 0 10px;
+}
+
+.auth-form form .signup-link {
+    text-align: center;
+    margin-top: 20px;
+    color: #262626;
+}
+
+.auth-form form .pass-link a,
+.auth-form form .signup-link a{
+    color: #4158d0;
+    text-decoration: none;
+}
+
+.auth-form form .pass-link a:hover,
+.auth-form form .signup-link a:hover{
+    text-decoration: underline;
+}
+
+.close-form {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+}
+
+.close-form i {
+    color: #000000;
+}
+
+.close-form i:hover {
+    color: rgb(187, 7, 7);
+}
+
+
+.close-form i:hover {
+    color: rgb(187, 7, 7);
+}
