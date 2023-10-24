@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+
+from django.urls import reverse_lazy
+
 from main import secret_info
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -87,6 +90,16 @@ DATABASES = {
 }
 
 
+# Cache
+# https://docs.djangoproject.com/en/4.2/topics/cache/
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/0",
+    }
+}
+
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -128,4 +141,20 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Replaced auth model
 AUTH_USER_MODEL = 'shop.Customer'
+
+# Created variables for save auth tokens
+AUTH_USER_CONFIRMATION_KEY = 'customer_confirmation_{token}'
+AUTH_USER_CONFIRMATION_TIMEOUT = 300
+
+# Setting for email messages
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 465
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+
+EMAIL_HOST_USER = secret_info.EMAIL_USER
+EMAIL_HOST_PASSWORD = secret_info.EMAIL_PASSWORD
+DEFAULT_FROM_EMAIL = secret_info.EMAIL_USER

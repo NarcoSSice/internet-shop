@@ -28,6 +28,7 @@ class CustomerManager(BaseUserManager):
     def create_superuser(self, email, password=None, **extra_fields):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
+        extra_fields.setdefault("is_active", True)
 
         if extra_fields.get("is_staff") is not True:
             raise ValueError("Superuser must have is_staff=True.")
@@ -56,7 +57,7 @@ class Customer(AbstractUser):
     )
     is_active = models.BooleanField(
         _("active"),
-        default=True,
+        default=False,
         help_text=_(
             "Designates whether this user should be treated as active. "
             "Unselect this instead of deleting accounts."
@@ -68,6 +69,9 @@ class Customer(AbstractUser):
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
+
+    def __str__(self):
+        return f'User {self.email}'
 
 
 class Category(models.Model):
