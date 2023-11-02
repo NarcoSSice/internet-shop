@@ -108,7 +108,7 @@ class Product(models.Model):
     slug = models.SlugField(max_length=50, unique=True, db_index=True, verbose_name='URL')
     description = models.TextField()
     price = models.FloatField()
-    # image = models.ImageField()
+    image = models.ImageField(upload_to='images/%Y/%m/%d/', null=True, blank=True)
     subcategory = models.ForeignKey(SubCategory, on_delete=models.PROTECT)
 
     class Meta:

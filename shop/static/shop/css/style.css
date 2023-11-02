@@ -80,6 +80,17 @@ aside li {
     margin-top: 5px;
 }
 
+aside li a {
+    color: #4d4e51;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+aside li a:hover {
+    color: #ea435c;
+    text-decoration: underline #ea435c;
+}
+
 .sidebar-socials,
 .sidebar-rights {
     border-top: 1px solid rgb(141, 141, 141);
@@ -169,6 +180,7 @@ section {
     top: 0;
     left: 0;
     background-color: rgba(0,0,0,0.4);
+    z-index: 5;
 }
 
 .auth-form {
