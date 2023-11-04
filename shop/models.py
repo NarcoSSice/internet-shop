@@ -100,7 +100,8 @@ class SubCategory(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('', kwargs={'subcategory_slug': self.slug})
+        return reverse('show_subcategory_products', kwargs={'category_slug': self.super_category.slug,
+                                                            'subcategory_slug': self.slug})
 
 
 class Product(models.Model):
@@ -118,7 +119,11 @@ class Product(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('', kwargs={'product_slug': self.slug})
+        return reverse('show_product_details', kwargs={
+            'category_slug': self.subcategory.super_category.slug,
+            'subcategory_slug': self.subcategory.slug,
+            'product_slug': self.slug,
+                                   })
 
 
 class Order(models.Model):

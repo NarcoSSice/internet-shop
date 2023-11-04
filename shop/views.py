@@ -1,12 +1,13 @@
 from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import FormView
 
 from shop.forms import RegisterCustomerForm, LoginUserForm
 from shop.services.auth_services import confirm_email_customer, confirm_customer
-from shop.services.categories_services import get_subcategories
+from shop.services.categories_services import get_subcategories, get_product_by_subcategory
 
 
 def index(request):
@@ -51,3 +52,25 @@ def show_subcategories(request, category_slug):
     }
 
     return render(request, 'shop/subcategories.html', context=context)
+
+
+def show_subcategory_products(request, category_slug, subcategory_slug):
+    products, subcategory = get_product_by_subcategory(subcategory_slug)
+
+    context = {
+        'products': products,
+        'subcategory': subcategory
+    }
+
+    return render(request, 'shop/show_subcategory.html', context=context)
+
+
+def show_products(request, category_slug, subcategory_slug, product_slug):
+    # products, subcategory = get_product_by_subcategory(subcategory_slug)
+    #
+    # context = {
+    #     'products': products,
+    #     'subcategory': subcategory
+    # }
+
+    return HttpResponse('asdasdas')

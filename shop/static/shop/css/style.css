@@ -124,11 +124,13 @@ section {
     border-bottom: solid 1px;
 }
 
-.subcategory h1 {
+.subcategory h1,
+.subcategory-products h1 {
     margin-left: 12px;
 }
 
-.container-fluid.subcategory-products {
+.container-fluid.subcategory-preview,
+.container-fluid subcategory-products {
     margin-bottom: 10px;
 }
 
