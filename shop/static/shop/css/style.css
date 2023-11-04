@@ -119,6 +119,23 @@ section {
     margin: 30px;
 }
 
+/* subcategories */
+.subcategory {
+    border-bottom: solid 1px;
+}
+
+.subcategory h1 {
+    margin-left: 12px;
+}
+
+.container-fluid.subcategory-products {
+    margin-bottom: 10px;
+}
+
+.more {
+    text-align: end;
+}
+
 /* carousel */
 
 .carousel.slide {

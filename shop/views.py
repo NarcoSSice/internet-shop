@@ -6,6 +6,7 @@ from django.views.generic import FormView
 
 from shop.forms import RegisterCustomerForm, LoginUserForm
 from shop.services.auth_services import confirm_email_customer, confirm_customer
+from shop.services.categories_services import get_subcategories
 
 
 def index(request):
@@ -40,3 +41,13 @@ class LoginUser(LoginView):
 def logout_customer(request):
     logout(request)
     return redirect('home')
+
+
+def show_subcategories(request, category_slug):
+    subcategories = get_subcategories(category_slug)
+
+    context = {
+        'subcategories': subcategories,
+    }
+
+    return render(request, 'shop/subcategories.html', context=context)

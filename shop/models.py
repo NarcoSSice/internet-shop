@@ -85,7 +85,7 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('', kwargs={'category_slug': self.slug})
+        return reverse('show_subcategories', kwargs={'category_slug': self.slug})
 
 
 class SubCategory(models.Model):
