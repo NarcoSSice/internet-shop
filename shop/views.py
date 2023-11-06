@@ -7,7 +7,7 @@ from django.views.generic import FormView
 
 from shop.forms import RegisterCustomerForm, LoginUserForm
 from shop.services.auth_services import confirm_email_customer, confirm_customer
-from shop.services.categories_services import get_subcategories, get_product_by_subcategory
+from shop.services.categories_services import get_subcategories, get_product_by_subcategory, get_product
 
 
 def index(request):
@@ -66,11 +66,10 @@ def show_subcategory_products(request, category_slug, subcategory_slug):
 
 
 def show_products(request, category_slug, subcategory_slug, product_slug):
-    # products, subcategory = get_product_by_subcategory(subcategory_slug)
-    #
-    # context = {
-    #     'products': products,
-    #     'subcategory': subcategory
-    # }
+    product = get_product(product_slug)
 
-    return HttpResponse('asdasdas')
+    context = {
+        'product': product,
+    }
+
+    return render(request, 'shop/product_detail.html', context=context)

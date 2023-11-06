@@ -22,9 +22,9 @@ from main import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('shop.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
     path('basket/', include('basket.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('', include('shop.urls')),
 ]
 
 if settings.DEBUG:

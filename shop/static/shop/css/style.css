@@ -52,6 +52,7 @@ nav .container-fluid{
 /* main and sidebar */
 
 .main-sidebar-wrapper {
+    min-height: 100vh;
     height: auto;
     background-color: rgb(205, 242, 252);
     padding: 0 140px 0 140px;
@@ -136,6 +137,67 @@ section {
 
 .more {
     text-align: end;
+}
+
+/* product */
+
+.product-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "product-img product-about";
+    height: auto;
+}
+
+.product-img {
+    justify-self: center;
+    align-self: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.product-img img {
+    width: 380px;
+}
+
+.product-about {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-about h1 {
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.product-about {
+    font-size: 20px;
+}
+
+.price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(158, 255, 223);
+    border: 1px solid;
+    border-radius: 13px;
+    margin: 0px 130px 20px 170px;
+    padding: 10px 0px 10px 0px;
+}
+
+.product-price {
+    margin-left: 20px;
+    font-size: 30px;
+}
+
+.product-price-button {
+    margin-right: 30px;
+}
+
+.product-description {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    padding: 20px;
 }
 
 /* carousel */

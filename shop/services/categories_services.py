@@ -15,3 +15,9 @@ def get_product_by_subcategory(subcategory_slug):
     products = Product.objects.filter(subcategory=subcategory.pk)
 
     return products, subcategory
+
+
+def get_product(product_slug):
+    product = get_object_or_404(Product, slug=product_slug)
+
+    return product
