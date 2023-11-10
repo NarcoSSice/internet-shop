@@ -52,6 +52,7 @@ nav .container-fluid{
 /* main and sidebar */
 
 .main-sidebar-wrapper {
+    min-height: 100vh;
     height: auto;
     background-color: rgb(205, 242, 252);
     padding: 0 140px 0 140px;
@@ -80,6 +81,17 @@ aside li {
     margin-top: 5px;
 }
 
+aside li a {
+    color: #4d4e51;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+aside li a:hover {
+    color: #ea435c;
+    text-decoration: underline #ea435c;
+}
+
 .sidebar-socials,
 .sidebar-rights {
     border-top: 1px solid rgb(141, 141, 141);
@@ -106,6 +118,86 @@ aside li {
 
 section {
     margin: 30px;
+}
+
+/* subcategories */
+.subcategory {
+    border-bottom: solid 1px;
+}
+
+.subcategory h1,
+.subcategory-products h1 {
+    margin-left: 12px;
+}
+
+.container-fluid.subcategory-preview,
+.container-fluid subcategory-products {
+    margin-bottom: 10px;
+}
+
+.more {
+    text-align: end;
+}
+
+/* product */
+
+.product-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "product-img product-about";
+    height: auto;
+}
+
+.product-img {
+    justify-self: center;
+    align-self: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.product-img img {
+    width: 380px;
+}
+
+.product-about {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-about h1 {
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.product-about {
+    font-size: 20px;
+}
+
+.price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(158, 255, 223);
+    border: 1px solid;
+    border-radius: 13px;
+    margin: 0px 130px 20px 170px;
+    padding: 10px 0px 10px 0px;
+}
+
+.product-price {
+    margin-left: 20px;
+    font-size: 30px;
+}
+
+.product-price-button {
+    margin-right: 30px;
+}
+
+.product-description {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    padding: 20px;
 }
 
 /* carousel */
@@ -169,6 +261,7 @@ section {
     top: 0;
     left: 0;
     background-color: rgba(0,0,0,0.4);
+    z-index: 5;
 }
 
 .auth-form {

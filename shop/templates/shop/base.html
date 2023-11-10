@@ -1,4 +1,5 @@
 {% load static %}
+{% load base_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,8 +12,10 @@
      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" 
      crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="{% static 'shop/css/style.css' %}" rel="stylesheet">
+    {% block static %}{% endblock static %}
 </head>
 <body>
+    {% get_categories as categories %}
     <div class="wrapper">
         <header>
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -29,7 +32,9 @@
                                 <i class="fa-brands fa-shopify" style="color: #000000;"></i> Каталог
                             </a>
                             <ul class="dropdown-menu">
-                              <li><a class="dropdown-item" href="#">Action</a></li>
+                                {% for category in categories %}
+                                <li><a class="dropdown-item" href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
+                                {% endfor %}
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -60,9 +65,12 @@
                             {% endif %}
                         </li>
                         <li class="nav-item basket">
-                        <a class="nav-link icon-bascket" href="#">
+                        <a class="nav-link icon-bascket" href="{% url 'basket_list' %}">
+                            {% if request.session.basket %}
+                            <i class="fa-sharp fa-solid fa-basket-shopping fa-2xl" style="color: #dad307;"></i>
+                            {% else %}
                             <i class="fa-sharp fa-solid fa-basket-shopping fa-2xl" style="color: #ffffff;"></i>
-                            <!-- No empty basket <i class="fa-sharp fa-solid fa-basket-shopping fa-2xl" style="color: #dad307;"></i> -->
+                            {% endif %}
                         </a>
                         </li>
                     </ul>
@@ -72,18 +80,10 @@
         </header>
         <div class="main-sidebar-wrapper">
             <aside>
-                    <!--<ul>
-                            {% for category in categories %}
-                            <li>{{ category.name }}</li>
-                            {% endfor %}
-                        </ul> -->
                 <ul>
-                    <li>Електроніка</li>
-                    <li>Побутові прилади</li>
-                    <li>Some</li>
-                    <li>Some</li>
-                    <li>Some</li>
-                    <li>Some</li>
+                    {% for category in categories %}
+                    <li><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
+                    {% endfor %}
                 </ul>
                 <div class="sidebar-socials">
                     <a href="https://www.facebook.com/" target="_blank">

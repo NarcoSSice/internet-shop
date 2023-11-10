@@ -1,0 +1,41 @@
+{% extends 'shop/base.html' %}
+{% load basket_tags %}
+
+{% block main_content %}
+<section class="product">
+    <div class="product-wrapper">
+        <div class="product product-img">
+            <img src="{{ product.image.url }}" alt="...">
+        </div>
+        <div class="product product-about">
+            <h1>{{ product.name }}</h1>
+            <div class="price">
+                <span class="product-price">{{product.price}}₴</span>
+                {% check_item_in_basket basket=request.session.basket product_id=product.pk as check %}
+                {% if not check %}
+                <form action="{% url 'add_basket_item' product.pk %}" method="post" style="display: inline-block;">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="{{ product.pk }}">
+                    <input type="hidden" name="url_from" value="{{ request.path }}">
+                    <button type="submit" class="btn btn-success product-price-button">
+                        Додати до кошику
+                    </button>
+                </form>
+                {% else %}
+                <form action="{% url 'remove_basket_item' product.pk %}" method="post" style="display: inline-block;">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="{{ product.pk }}">
+                    <input type="hidden" name="url_from" value="{{ request.path }}">
+                    <button type="submit" class="btn btn-danger product-price-button">
+                        Видалити з кошику
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        <div class="product product-description">
+            <p>{{ product.description }}</p>
+        </div>
+    </div>
+</section>
+{% endblock main_content %}

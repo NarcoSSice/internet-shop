@@ -1,0 +1,8 @@
+<form action="{% url 'add_basket_item' product_id %}" method="post" style="display: inline-block;">
+    {% csrf_token %}
+    <input type="hidden" name="id" value="{{ product_id }}">
+    <input type="hidden" name="url_from" value="{{ request.path }}">
+    <button type="submit" class="btn btn-success" >
+        <i class="fa-sharp fa-solid fa-basket-shopping fa-2xl" style="color: #ffffff;"></i>
+    </button>
+</form>

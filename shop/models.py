@@ -85,7 +85,7 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('', kwargs={'category_slug': self.slug})
+        return reverse('show_subcategories', kwargs={'category_slug': self.slug})
 
 
 class SubCategory(models.Model):
@@ -100,7 +100,8 @@ class SubCategory(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('', kwargs={'subcategory_slug': self.slug})
+        return reverse('show_subcategory_products', kwargs={'category_slug': self.super_category.slug,
+                                                            'subcategory_slug': self.slug})
 
 
 class Product(models.Model):
@@ -108,7 +109,7 @@ class Product(models.Model):
     slug = models.SlugField(max_length=50, unique=True, db_index=True, verbose_name='URL')
     description = models.TextField()
     price = models.FloatField()
-    # image = models.ImageField()
+    image = models.ImageField(upload_to='images/%Y/%m/%d/', null=True, blank=True)
     subcategory = models.ForeignKey(SubCategory, on_delete=models.PROTECT)
 
     class Meta:
@@ -118,7 +119,11 @@ class Product(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('', kwargs={'product_slug': self.slug})
+        return reverse('show_product_details', kwargs={
+            'category_slug': self.subcategory.super_category.slug,
+            'subcategory_slug': self.subcategory.slug,
+            'product_slug': self.slug,
+                                   })
 
 
 class Order(models.Model):
@@ -137,7 +142,7 @@ class Order(models.Model):
 class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=0, null=True, blank=True)
+    quantity = models.IntegerField(default=1, null=True, blank=True)
 
     class Meta:
         db_table = 'OrderItems'

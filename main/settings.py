@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 from django.urls import reverse_lazy
@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'shop.apps.ShopConfig'
+    
+    'basket.apps.BasketConfig',
+    'shop.apps.ShopConfig',
 ]
 
 MIDDLEWARE = [
@@ -158,3 +160,7 @@ EMAIL_USE_SSL = True
 EMAIL_HOST_USER = secret_info.EMAIL_USER
 EMAIL_HOST_PASSWORD = secret_info.EMAIL_PASSWORD
 DEFAULT_FROM_EMAIL = secret_info.EMAIL_USER
+
+# Settings for media
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
