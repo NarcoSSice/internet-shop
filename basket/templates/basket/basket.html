@@ -1,0 +1,68 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block static %}
+<link href="{% static 'basket/css/basket.css' %}" rel="stylesheet">
+{% endblock static %}
+
+{% block forms %}
+<div class="popup-bg">
+    <div class="popup">
+        <span class="popup-title">Basket</span>
+        <a href="{% url 'home' %}" class="close-popup">
+            <i class="fa-sharp fa-solid fa-square-xmark fa-xl"></i>
+        </a>
+        <div class="basket-wapper">
+            {% if products %}
+            {% for product in products %}
+            <div class="product-item">
+                <img src="{{ product.image.url }}" alt="...">
+                <div class="name-counter-price-wrapper">
+                    <div class="name">
+                        <span>{{ product.name }}</span>
+                    </div>
+                    <div class="delete-product">
+                        <form action="{% url 'remove_basket_item' product.pk %}" method="post" style="display: inline-block;">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ product.pk }}">
+                            <input type="hidden" name="url_from" value="{{ request.path }}">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fa-solid fa-trash fa-xl" style="color: #ffffff;"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="counter">
+                        <button>
+                            <i class="fa-sharp fa-light fa-minus" style="color: #0041b3;"></i>
+                        </button>
+                        <span>430</span>
+                        <button>
+                            <i class="fa-sharp fa-light fa-plus" style="color: #0041b3;"></i>
+                        </button>
+                    </div>
+                    <div class="basket-price">
+                        <span>{{ product.price }}₴</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="order-buttons">
+                <a href="{% url 'clear_basket' %}" class="btn btn-danger">
+                    Clear basket
+                </a>
+                <a href="#" class="btn btn-success">
+                    Make order
+                </a>
+            </div>
+            {% else %}
+            <div class="empty-basket">
+                Ваш кошик порожній :(
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'shop/js/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'basket/js/basket_script.js' %}"></script>
+{% endblock forms %}

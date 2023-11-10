@@ -66,8 +66,11 @@
                         </li>
                         <li class="nav-item basket">
                         <a class="nav-link icon-bascket" href="{% url 'basket_list' %}">
+                            {% if request.session.basket %}
+                            <i class="fa-sharp fa-solid fa-basket-shopping fa-2xl" style="color: #dad307;"></i>
+                            {% else %}
                             <i class="fa-sharp fa-solid fa-basket-shopping fa-2xl" style="color: #ffffff;"></i>
-                            <!-- No empty basket <i class="fa-sharp fa-solid fa-basket-shopping fa-2xl" style="color: #dad307;"></i> -->
+                            {% endif %}
                         </a>
                         </li>
                     </ul>
