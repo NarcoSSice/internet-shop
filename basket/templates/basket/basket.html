@@ -32,27 +32,34 @@
                         </form>
                     </div>
                     <div class="counter">
-                        <button>
-                            <i class="fa-sharp fa-light fa-minus" style="color: #0041b3;"></i>
+                        <span class="basket-counter-text">Кількість товару</span>
+                        <button class="basket-counter-button" disabled>
+                            <span>-</span>
                         </button>
-                        <span>430</span>
-                        <button>
-                            <i class="fa-sharp fa-light fa-plus" style="color: #0041b3;"></i>
+                        <span class="basket-counter-number">1</span>
+                        <button class="basket-counter-button">
+                            <span>+</span>
                         </button>
                     </div>
-                    <div class="basket-price">
-                        <span>{{ product.price }}₴</span>
+                    <div class="basket-item-price">
+                        <span>{{ product.price }}</span><span> ₴</span>
                     </div>
                 </div>
             </div>
             {% endfor %}
             <div class="order-buttons">
-                <a href="{% url 'clear_basket' %}" class="btn btn-danger">
+                <div class="clear-basket-button">
+                    <a href="{% url 'clear_basket' %}" class="btn btn-danger">
                     Clear basket
-                </a>
-                <a href="#" class="btn btn-success">
-                    Make order
-                </a>
+                    </a>
+                </div>
+                <div class="maker-order-button">
+                    <div class="basket-total-price">
+                        <span></span><span> ₴</span>
+                    </div>
+                    <a href="#" class="btn btn-success">
+                        Make order
+                    </a>
             </div>
             {% else %}
             <div class="empty-basket">
@@ -65,4 +72,5 @@
 
 <script src="{% static 'shop/js/jquery/jquery.min.js' %}"></script>
 <script src="{% static 'basket/js/basket_script.js' %}"></script>
+<script src="{% static 'basket/js/basket_counter_script.js' %}"></script>
 {% endblock forms %}

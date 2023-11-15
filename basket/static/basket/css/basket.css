@@ -48,10 +48,6 @@
     color: rgb(187, 7, 7);
 }
 
-
-
-
-
 .product-item {
     display: flex;
     height: auto;
@@ -71,7 +67,7 @@
 }
 
 .order-buttons a {
-    font-size: 1.7rem;
+    font-size: 1.4rem;
 }
 
 .name-counter-price-wrapper {
@@ -91,7 +87,7 @@
     padding-right: 10px;
 }
 
-.basket-price {
+.basket-item-price {
     display: flex;
     justify-self: end;
     align-items: center;
@@ -112,4 +108,52 @@
     justify-content: center;
     align-items: center;
     color: rgb(167, 165, 166);
+}
+
+.basket-counter-text {
+    margin-right: 10px;
+}
+
+.basket-counter-number {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.basket-counter-button {
+    background-color: #ffffff;
+    border: 0.5px solid #000000;
+    border-radius: 50%;
+    color: blue;
+    height: 25px;
+    width: 25px;
+    transition: .3s;
+}
+
+.basket-counter-button:hover {
+    background-color: #a8a8a8;
+}
+
+.basket-counter-button:disabled {
+    background-color: #ffffff;
+    opacity: 0.5;
+}
+
+.basket-total-price {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.basket-total-price span {
+    font-size: 25px;
+    vertical-align: middle;
+}
+
+.maker-order-button,
+.clear-basket-button {
+    padding: 10px 15px 10px 15px;
+}
+
+.maker-order-button {
+    background-color: rgb(89, 240, 84);
+    border-radius: 10px;
 }
