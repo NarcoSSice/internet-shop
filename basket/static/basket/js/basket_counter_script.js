@@ -6,6 +6,7 @@ counters.forEach((element, index) => {
     const counterNumber = element.querySelector('.basket-counter-number');
     const counterBtn = element.querySelectorAll('.basket-counter-button');
     const productPrice = element.querySelector('.basket-item-price span');
+    const productId = Number(element.querySelector('.basket-product-item-id[hidden]').innerHTML);
     var price = Number(productPrice.innerHTML.replace(/ /g,''));
     let counter = 1;
     let newPrice = 0;
@@ -20,6 +21,7 @@ counters.forEach((element, index) => {
                 totalPrice += price;
             }
             newPrice = counter * price;
+            updateProductQuantity(productId, counter);
             counterNumber.textContent = counter;
             productPrice.textContent = newPrice;
             setDisabled(counter, counterBtn);
@@ -44,3 +46,34 @@ function setDisabled(counter, counterBtn) {
 function setPrice(price) {
     totalBasketPrice.textContent = price;
 }
+
+const updateProductQuantity = (productId, newQuantity) => {
+    fetch('/basket/update_quantity/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCSRFToken(),
+        },
+        body: JSON.stringify({
+            product_id: productId,
+            new_quantity: newQuantity,
+        }),
+    })
+//    .then(response => {
+//        if (response.ok) {
+//            // Обработка успешного обновления
+//            console.log('Количество товара обновлено!');
+//        } else {
+//            // Обработка ошибки
+//            console.error('Ошибка при обновлении количества товара');
+//        }
+//    })
+//    .catch(error => {
+//        console.error('Произошла ошибка:', error);
+//    });
+};
+
+const getCSRFToken = () => {
+    const csrfToken = document.querySelector('input[name=csrfmiddlewaretoken]').value;
+    return csrfToken;
+};

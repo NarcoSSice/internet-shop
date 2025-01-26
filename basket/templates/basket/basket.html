@@ -18,6 +18,7 @@
             <div class="product-item">
                 <img src="{{ product.image.url }}" alt="...">
                 <div class="name-counter-price-wrapper">
+                    <span class="basket-product-item-id" hidden>{{ product.pk }}</span>
                     <div class="name">
                         <span>{{ product.name }}</span>
                     </div>
@@ -57,7 +58,7 @@
                     <div class="basket-total-price">
                         <span></span><span> ₴</span>
                     </div>
-                    <a href="#" class="btn btn-success">
+                    <a href="{% url 'make_order' %}" class="btn btn-success">
                         Make order
                     </a>
             </div>

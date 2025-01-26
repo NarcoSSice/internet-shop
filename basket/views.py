@@ -1,6 +1,8 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
-from basket.services.basket_services import add_item_to_basket, remove_item_from_basket, create_basket_list
+from basket.services.basket_services import add_item_to_basket, remove_item_from_basket, create_basket_list, \
+    change_product_quantity
 
 
 def basket_list(request):
@@ -32,3 +34,9 @@ def clear_basket(request):
         del request.session['basket']
 
     return redirect('basket_list')
+
+
+def update_product_quantity(request):
+    if request.method == 'POST':
+        change_product_quantity(request)
+    return JsonResponse({'success': True})

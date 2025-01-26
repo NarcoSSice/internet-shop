@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import get_object_or_404
 
 from shop.models import Product
@@ -8,6 +10,7 @@ def add_item_to_basket(request, product_id):
 
     add_data = {
         'product_id': product_id,
+        'quantity': 1,
     }
 
     if not exist_product:
@@ -33,3 +36,14 @@ def create_basket_list(request):
             products.append(product)
 
     return products
+
+
+def change_product_quantity(request):
+    data = json.loads(request.body)
+    product_id = str(data.get('product_id'))
+    new_quantity = data.get('new_quantity')
+
+    item = next((item for item in request.session['basket'] if item['product_id'] == product_id), None)
+    if item:
+        item['quantity'] = new_quantity
+        request.session.modified = True
