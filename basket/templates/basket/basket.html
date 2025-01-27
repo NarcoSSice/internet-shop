@@ -1,5 +1,6 @@
 {% extends 'shop/base.html' %}
 {% load static %}
+{% load basket_tags %}
 
 {% block static %}
 <link href="{% static 'basket/css/basket.css' %}" rel="stylesheet">
@@ -13,8 +14,8 @@
             <i class="fa-sharp fa-solid fa-square-xmark fa-xl"></i>
         </a>
         <div class="basket-wapper">
-            {% if products %}
-            {% for product in products %}
+            {% if page_obj %}
+            {% for product in page_obj %}
             <div class="product-item">
                 <img src="{{ product.image.url }}" alt="...">
                 <div class="name-counter-price-wrapper">
@@ -37,13 +38,16 @@
                         <button class="basket-counter-button" disabled>
                             <span>-</span>
                         </button>
-                        <span class="basket-counter-number">1</span>
+                        <span class="basket-counter-number">
+                            {% item_quantity basket=request.session.basket product_id=product.pk as quantity %}
+                            {{ quantity }}
+                        </span>
                         <button class="basket-counter-button">
                             <span>+</span>
                         </button>
                     </div>
                     <div class="basket-item-price">
-                        <span>{{ product.price }}</span><span> ₴</span>
+                        <span>{% calculate_price price=product.price quantity=quantity %}</span><span> ₴</span>
                     </div>
                 </div>
             </div>
@@ -54,6 +58,33 @@
                     Clear basket
                     </a>
                 </div>
+                <div class="pages">
+                <ul class="pagination">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Предыдущая">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+                {% for page in paginator.page_range %}
+                {% if page_obj.number == page %}
+                <li class="page-item active" aria-current="page"><span class="page-link">{{ page }}</span></li>
+                {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                </li>
+                {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Следующая">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+                </li>
+                {% endif %}
+                </ul>
+                </div>
                 <div class="maker-order-button">
                     <div class="basket-total-price">
                         <span></span><span> ₴</span>
@@ -62,6 +93,7 @@
                         Make order
                     </a>
             </div>
+
             {% else %}
             <div class="empty-basket">
                 Ваш кошик порожній :(

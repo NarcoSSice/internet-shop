@@ -7,10 +7,12 @@ counters.forEach((element, index) => {
     const counterBtn = element.querySelectorAll('.basket-counter-button');
     const productPrice = element.querySelector('.basket-item-price span');
     const productId = Number(element.querySelector('.basket-product-item-id[hidden]').innerHTML);
-    var price = Number(productPrice.innerHTML.replace(/ /g,''));
-    let counter = 1;
+    let fixedPrice = Number(productPrice.innerHTML.replace(/ /g,''));
+    let counter = Number(counterNumber.innerHTML);
+    var price = fixedPrice / counter;
     let newPrice = 0;
 
+    setDisabled(counter, counterBtn);
     counterBtn.forEach((el, index) => {
         el.addEventListener('click', () => {
             if (index === 0 && counter > 1) {
@@ -28,7 +30,7 @@ counters.forEach((element, index) => {
             setPrice(totalPrice);
         });
     });
-    totalPrice += price;
+    totalPrice += fixedPrice;
     setPrice(totalPrice);
 });
 
@@ -59,18 +61,18 @@ const updateProductQuantity = (productId, newQuantity) => {
             new_quantity: newQuantity,
         }),
     })
-//    .then(response => {
-//        if (response.ok) {
-//            // Обработка успешного обновления
-//            console.log('Количество товара обновлено!');
-//        } else {
-//            // Обработка ошибки
-//            console.error('Ошибка при обновлении количества товара');
-//        }
-//    })
-//    .catch(error => {
-//        console.error('Произошла ошибка:', error);
-//    });
+    .then(response => {
+        if (response.ok) {
+            // Обработка успешного обновления
+            console.log('Количество товара обновлено!');
+        } else {
+            // Обработка ошибки
+            console.error('Ошибка при обновлении количества товара');
+        }
+    })
+    .catch(error => {
+        console.error('Произошла ошибка:', error);
+    });
 };
 
 const getCSRFToken = () => {
