@@ -1,12 +1,19 @@
+from django.core.paginator import Paginator
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
-from basket.services.basket_services import add_item_to_basket, remove_item_from_basket, create_basket_list
+from basket.services.basket_services import add_item_to_basket, remove_item_from_basket, create_basket_list, \
+    change_product_quantity
 
 
 def basket_list(request):
     products = create_basket_list(request)
+    paginator = Paginator(products, 2)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
-        'products': products,
+        'page_obj': page_obj,
     }
     return render(request, 'basket/basket.html', context=context)
 
@@ -32,3 +39,9 @@ def clear_basket(request):
         del request.session['basket']
 
     return redirect('basket_list')
+
+
+def update_product_quantity(request):
+    if request.method == 'POST':
+        change_product_quantity(request)
+    return JsonResponse({'success': True})

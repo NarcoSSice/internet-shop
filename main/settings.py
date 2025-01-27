@@ -146,9 +146,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Replaced auth model
 AUTH_USER_MODEL = 'shop.Customer'
 
-# Created variables for save auth tokens
+# Redis keys
 AUTH_USER_CONFIRMATION_KEY = 'customer_confirmation_{token}'
 AUTH_USER_CONFIRMATION_TIMEOUT = 300
+
+RECOMMENDED_PRODUCTS_KEY = 'recommended_products'
+RECOMMENDED_SUBCATEGORIES_KEY = 'recommended_subcategories'
 
 # Setting for email messages
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
