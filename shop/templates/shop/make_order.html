@@ -1,0 +1,69 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block main_content %}
+<section>
+    <div class="order-wrapper">
+        <h1>Оформлення замовлення</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-6 order-field">
+                                    <label for="order-input-email">Електронна адреса</label>
+                                    <input id="order-input-email" type="text" value="{{ user.email }}" disabled>
+                                </div>
+                                <div class="col-lg-6 order-field">
+                                    <label for="order-input-phone">Мобільний телефон</label>
+                                    <input type="text" id="order-input-phone" value="{{ user.phone }}" disabled>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 order-field">
+                                    <label for="order-input-name">Ім'я</label>
+                                    <input type="text" id="order-input-name" value="{{ user.first_name }}" disabled>
+                                </div>
+                                <div class="col-lg-6 order-field">
+                                    <label for="order-input-secondname">Призвіще</label>
+                                    <input type="text" id="order-input-secondname" value="{{ user.last_name }}" disabled>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 order-field">
+                                    <label for="order-input-city">Місто</label>
+                                    <input type="text" name="city" id="order-input-city" required>
+                                </div>
+                                <div class="col-lg-6 order-field">
+                                    <label for="order-input-address">Адреса</label>
+                                    <input type="text" name="address" id="order-input-address" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 order-confirm-wrapp">
+                        <div class="order-confirm">
+                            <div class="confirm-text">
+                                <h3>Замовлення</h3>
+                                <div class="confirm-text-quantity">
+                                    <span>{{ products_quantity }} товарів на сумму</span>
+                                    <span>{{ total_price }} ₴</span>
+                                </div>
+                            </div>
+                            <div class="confirm-price">
+                                <span>До сплати</span>
+                                <span>{{ total_price }} ₴</span>
+                            </div>
+                            <div class="confirm-order-button">
+                                <button type="submit" class="btn btn-success">Підтвердити замовлення</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock main_content %}

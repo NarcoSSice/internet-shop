@@ -1,5 +1,7 @@
 {% load static %}
 {% load base_tags %}
+{% load subcategories_tags %}
+{% load basket_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,8 +40,8 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                        <form class="d-flex" role="search">
-                            <input class="form-control search me-2" type="search" placeholder="Пошук" aria-label="Пошук">
+                        <form class="d-flex" role="search" method="GET" action="{% url 'search' %}">
+                            <input class="form-control search me-2" type="search" placeholder="Пошук" aria-label="Пошук" name="query">
                             <button class="btn btn-outline-success" type="submit">Пошук</button>
                         </form>
                         </li>
@@ -110,6 +112,63 @@
             </aside>
             <main>
                 {% block main_content %}
+                <section class="recommended">
+                    <h1>Рекомендовані товари</h1>
+                    <div class="container-fluid recommended-preview">
+                        <div class="row">
+                            {% for product in recommended_products %}
+                            <div class="col-lg-4">
+                                <div class="card" style="width: 100%;">
+                                    <img src="{{ product.image.url }}" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h6 class="card-title">{{ product.name }}</h6>
+                                        <p class="card-text card-price">{{ product.price }}₴</p>
+                                        <a href="{{ product.get_absolute_url }}" class="btn btn-info card-button">Детальна інформація</a>
+                                        {% check_item_in_basket basket=request.session.basket product_id=product.pk as check %}
+                                        {% if check %}
+                                        {% include 'basket/remove_item.html' with product_id=product.pk %}
+                                        {% else %}
+                                        {% include 'basket/add_item.html' with product_id=product.pk %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </section>
+
+                {% for subcategory in recommended_subcategories %}
+                <section class="subcategory">
+                    <h2>{{ subcategory.name }}</h2>
+                    <div class="container-fluid subcategory-preview">
+                        {% get_product_by_category subcategory.id as products %}
+                        <div class="row">
+                            {% for product in products|slice:":4" %}
+                            <div class="col-lg-3">
+                                <div class="card" style="width: 19rem;">
+                                    <img src="{{ product.image.url }}" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h6 class="card-title">{{ product.name }}</h6>
+                                        <p class="card-text card-price">{{ product.price }}₴</p>
+                                        <a href="{{ product.get_absolute_url }}" class="btn btn-info card-button">Детальна інформація</a>
+                                        {% check_item_in_basket basket=request.session.basket product_id=product.pk as check %}
+                                        {% if check %}
+                                        {% include 'basket/remove_item.html' with product_id=product.pk %}
+                                        {% else %}
+                                        {% include 'basket/add_item.html' with product_id=product.pk %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="more">
+                            <a href="{{ subcategory.get_absolute_url }}">Більше товарів >></a>
+                        </div>
+                    </div>
+                </section>
+                {% endfor %}
                 {% endblock main_content %}
 
                 {% block forms %}

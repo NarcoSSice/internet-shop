@@ -108,7 +108,7 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=50, unique=True, db_index=True, verbose_name='URL')
     description = models.TextField()
-    price = models.FloatField()
+    price = models.IntegerField()
     image = models.ImageField(upload_to='images/%Y/%m/%d/', null=True, blank=True)
     subcategory = models.ForeignKey(SubCategory, on_delete=models.PROTECT)
 
@@ -130,7 +130,7 @@ class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     status = models.BooleanField(default=False)
     time_create = models.DateTimeField(auto_now_add=True)
-    transaction_id = models.IntegerField()
+    transaction_id = models.CharField(max_length=100)
 
     class Meta:
         db_table = 'Orders'

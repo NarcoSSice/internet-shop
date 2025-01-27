@@ -1,0 +1,20 @@
+#generate-description {
+    font-weight: bold;
+    width: 100px;      /* Ширина кнопки */
+    height: 40px;      /* Висота кнопки */
+    margin-left: 30px; /* Відступ зліва */
+    margin-top: 60px;
+    background-color: #4CAF50; /* Колір фону */
+    color: white;      /* Колір тексту */
+    border: none;      /* Без обрамлення */
+    border-radius: 5px; /* Круглі краї */
+}
+
+#generate-price, #generate-image, #view-image {
+    font-weight: bold;
+    margin-left: 30px; /* Відступ зліва */
+    background-color: #4CAF50; /* Колір фону */
+    color: white;      /* Колір тексту */
+    border: none;      /* Без обрамлення */
+    border-radius: 5px; /* Круглі краї */
+}
