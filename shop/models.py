@@ -147,6 +147,9 @@ class OrderItem(models.Model):
     class Meta:
         db_table = 'OrderItems'
 
+    def __str__(self):
+        return f'Product: {self.product.name}; Order number: {self.order.id}'
+
 
 class Shipping(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
@@ -157,3 +160,6 @@ class Shipping(models.Model):
 
     class Meta:
         db_table = 'Shippings'
+
+    def __str__(self):
+        return f'Order number: {self.order.id}; status: {self.order.status}'
