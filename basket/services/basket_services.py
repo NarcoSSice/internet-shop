@@ -9,7 +9,7 @@ def add_item_to_basket(request, product_id):
     exist_product = next((item for item in request.session['basket'] if item['product_id'] == product_id), False)
 
     add_data = {
-        'product_id': product_id,
+        'product_id': str(product_id),
         'quantity': 1,
     }
 
@@ -30,8 +30,9 @@ def remove_item_from_basket(request, product_id):
 
 def create_basket_list(request):
     products = []
-    if request.session.get('basket'):
-        for item in request.session.get('basket'):
+    basket = request.session.get('basket')
+    if basket:
+        for item in basket:
             product = get_object_or_404(Product, pk=item['product_id'])
             products.append(product)
 

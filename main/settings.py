@@ -41,9 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
+    'api.apps.ApiConfig',
     'basket.apps.BasketConfig',
     'shop.apps.ShopConfig',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -167,3 +169,11 @@ DEFAULT_FROM_EMAIL = secret_info.EMAIL_USER
 # Settings for media
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# drf settings
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}

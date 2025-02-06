@@ -35,7 +35,7 @@ def confirm_email_customer(request, form):
         send_email_confirmation(request, customer)
 
 
-def send_email_confirmation(request, customer):
+def send_email_confirmation(request, customer, is_api=False):
     """
     This function create token for user and caches it.
     Then create message with confirmation link and send it on email.
@@ -45,11 +45,12 @@ def send_email_confirmation(request, customer):
     redis_key = settings.AUTH_USER_CONFIRMATION_KEY.format(token=token)
     cache.set(redis_key, {'customer_id': customer.id}, timeout=settings.AUTH_USER_CONFIRMATION_TIMEOUT)
 
-    confirm_link = request.build_absolute_uri(
-        reverse_lazy(
-            'register_confirm', kwargs={'token': token}
-        )
-    )
+    if is_api:
+        confirm_url = reverse_lazy('api_register_confirm', kwargs={'token': token})
+    else:
+        confirm_url = reverse_lazy('register_confirm', kwargs={'token': token})
+
+    confirm_link = request.build_absolute_uri(confirm_url)
 
     message = _(f'follow this link to confirm.\n{confirm_link}\nThis link will expire in 5 minutes')
 
