@@ -142,7 +142,7 @@
                 <section class="subcategory">
                     <h2>{{ subcategory.name }}</h2>
                     <div class="container-fluid subcategory-preview">
-                        {% get_product_by_category subcategory.id as products %}
+                        {% get_product_by_category subcategory.pk as products %}
                         <div class="row">
                             {% for product in products|slice:":4" %}
                             <div class="col-lg-3">

@@ -25,7 +25,12 @@ def get_season():
 def get_recommended_products(recommended_subcategories):
     random_category = random.choice(recommended_subcategories)
     subcategory = SubCategory.objects.filter(name=random_category).first()
-    products = Product.objects.filter(subcategory=subcategory).order_by('?')[:3]
+    products = (
+        Product.objects
+        .select_related('subcategory__super_category')
+        .filter(subcategory=subcategory)
+        .order_by('?')[:3]
+    )
 
     cache.set(RECOMMENDED_PRODUCTS_KEY, {'products': products}, timeout=86400)
     return {'products': products}
@@ -46,8 +51,11 @@ def get_recommended_subcategories():
             ],
             max_tokens=150,
         )
+
         ai_recommended = response.choices[0].message.content
-        recommended = list(SubCategory.objects.filter(name__in=ast.literal_eval(ai_recommended.strip())))
+        recommended = list(SubCategory.objects.select_related('super_category')
+                           .filter(name__in=ast.literal_eval(ai_recommended.strip())))
+
         cache.set(RECOMMENDED_SUBCATEGORIES_KEY, {'subcategories': recommended}, timeout=86400)
         return {'subcategories': recommended}
     except openai.OpenAIError as e:
