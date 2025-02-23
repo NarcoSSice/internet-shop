@@ -75,5 +75,5 @@ class CustomerSerializer(serializers.ModelSerializer):
         customer = Customer(**validated_data)
         customer.set_password(validated_data['password'])
         customer.save()
-        send_email_confirmation(self.context.get('request'), customer, is_api=True)
+        send_email_confirmation.delay(self.context.get('request'), customer, is_api=True)
         return customer

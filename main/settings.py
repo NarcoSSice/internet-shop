@@ -180,6 +180,10 @@ REST_FRAMEWORK = {
     ]
 }
 
+# debug_toolbar settings
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+# Celery
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/3'

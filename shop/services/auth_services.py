@@ -1,5 +1,6 @@
 import uuid
 
+from celery import shared_task
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
@@ -32,9 +33,10 @@ def confirm_email_customer(request, form):
     if customer.is_active:
         pass
     else:
-        send_email_confirmation(request, customer)
+        send_email_confirmation.delay(request, customer)
 
 
+@shared_task
 def send_email_confirmation(request, customer, is_api=False):
     """
     This function create token for user and caches it.
@@ -93,7 +95,7 @@ def get_customer_activated(request, email):
         )
     else:
         if not customer.is_active:
-            send_email_confirmation(request, customer)
+            send_email_confirmation.delay(request, customer)
             raise ValidationError(
                 _(
                     'This account is not activated '
