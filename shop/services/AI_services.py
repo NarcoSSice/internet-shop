@@ -1,8 +1,8 @@
+import os
 import openai
-from main.secret_info import OPENAI_KEY
 from django.http import JsonResponse
 
-client = openai.OpenAI(api_key=OPENAI_KEY)
+client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
 
 def get_data(request):

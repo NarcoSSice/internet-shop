@@ -1,13 +1,14 @@
+import os
 import openai
 import ast
 import random
 from django.core.cache import cache
 from main.settings import RECOMMENDED_PRODUCTS_KEY, RECOMMENDED_SUBCATEGORIES_KEY
-from main.secret_info import OPENAI_KEY
 from datetime import datetime
 from shop.models import Product, SubCategory
 
-client = openai.OpenAI(api_key=OPENAI_KEY)
+api_key = os.getenv('OPENAI_API_KEY')
+client = openai.OpenAI(api_key=api_key)
 
 
 def get_subcategories():

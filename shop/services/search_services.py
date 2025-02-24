@@ -1,9 +1,9 @@
+import os
 import openai
 import ast
 from shop.models import Product
-from main.secret_info import OPENAI_KEY
 
-client = openai.OpenAI(api_key=OPENAI_KEY)
+client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
 
 def get_products():
