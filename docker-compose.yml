@@ -1,0 +1,59 @@
+version: "3.11"
+
+networks:
+  webshop:
+
+services:
+  postgres_service:
+    image: postgres:15
+    container_name: is_postgres
+    volumes:
+      - ~/.pg/pg_data/is:/var/lib/postgresql/data
+    env_file:
+      - .env
+    networks:
+      - webshop
+
+  django_service:
+    build:
+      context: .
+    container_name: is_django
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres_service
+    volumes:
+      - static_volume:/main/static
+      - media_volume:/main/media
+    env_file:
+      - .env
+    command: >
+      bash -c "python ./manage.py collectstatic --noinput && python ./manage.py migrate && python ./manage.py runserver 0.0.0.0:8000"
+    networks:
+      - webshop
+
+  redis_service:
+    image: redis:7
+    hostname: redis
+    container_name: is_redis
+    networks:
+      - webshop
+
+  celery_service:
+    build:
+      context: .
+    container_name: is_celery
+    hostname: celery_worker
+    entrypoint: celery
+    command: -A main worker --loglevel=INFO
+    links:
+      - redis_service
+    depends_on:
+      - redis_service
+    networks:
+      - webshop
+
+
+volumes:
+  static_volume:
+  media_volume:
