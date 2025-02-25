@@ -33,11 +33,11 @@ def confirm_email_customer(request, form):
     if customer.is_active:
         pass
     else:
-        send_email_confirmation.delay(request, customer)
+        send_email_confirmation.delay(request.get_host(), customer.id, customer.email)
 
 
 @shared_task
-def send_email_confirmation(request, customer, is_api=False):
+def send_email_confirmation(host, customer_id, customer_email, is_api=False):
     """
     This function create token for user and caches it.
     Then create message with confirmation link and send it on email.
@@ -45,14 +45,14 @@ def send_email_confirmation(request, customer, is_api=False):
 
     token = uuid.uuid4().hex
     redis_key = settings.AUTH_USER_CONFIRMATION_KEY.format(token=token)
-    cache.set(redis_key, {'customer_id': customer.id}, timeout=settings.AUTH_USER_CONFIRMATION_TIMEOUT)
+    cache.set(redis_key, {'customer_id': customer_id}, timeout=settings.AUTH_USER_CONFIRMATION_TIMEOUT)
 
     if is_api:
         confirm_url = reverse_lazy('api_register_confirm', kwargs={'token': token})
     else:
         confirm_url = reverse_lazy('register_confirm', kwargs={'token': token})
 
-    confirm_link = request.build_absolute_uri(confirm_url)
+    confirm_link = f'https://{host}{confirm_url}'
 
     message = _(f'follow this link to confirm.\n{confirm_link}\nThis link will expire in 5 minutes')
 
@@ -60,7 +60,7 @@ def send_email_confirmation(request, customer, is_api=False):
         subject=_('Confirm your email.'),
         message=message,
         from_email=settings.EMAIL_HOST_USER,
-        recipient_list=[customer.email, ]
+        recipient_list=[customer_email, ]
     )
 
 
@@ -95,7 +95,7 @@ def get_customer_activated(request, email):
         )
     else:
         if not customer.is_active:
-            send_email_confirmation.delay(request, customer)
+            send_email_confirmation.delay(request.get_host(), customer.id, customer.email)
             raise ValidationError(
                 _(
                     'This account is not activated '
